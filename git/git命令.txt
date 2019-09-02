@@ -22,5 +22,5 @@
 
 8.git commit -m 'sdfdf' // 提交到本地仓库
 9.git remote add origin xxxxxxxxxxxxxxxxx(远程路径)  //和远程仓库关联
-10.git push -u origin master   //以master 分支提交到远程
+10.git push -u origin master   //以master 分支提交到远程   
   
