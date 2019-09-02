@@ -1,0 +1,26 @@
+
+1.检查本机是否有ssh key设置,切换到.ssh目录
+　　$ cd ~/.ssh 或cd .ssh
+
+2.配置git用户名和邮箱，配置多个用户时添加 --add 参数
+　　$ git config --global --add user.name "username"
+　　$ git config --global --add user.email "email"
+
+　　$ git config --global --unset user.name "username"　　　　　　　　　　　　#移除用户
+　　$ git config --global --unset user.email "email"　　　　　　　　　　　　　　 #移除邮箱
+
+3.查看用户名和邮箱
+　　$ git config --list
+
+4.ssh-keygen -t rsa -C "邮箱"  //生成ssh Key  需要注意的是文件的保存路径
+5.将生成的public key 设置到github 个人中心里；  
+6.git  init   //初始化
+7.git  add xxx  // 添加指定文件
+  git  add .                               提交被修改的和新建的文件，但不包括被删除的文件                            
+  git add -u     --update          update tracked files    更新所有改变的文件，即提交所有变化的文件
+  git add -A    --all                  add changes from all tracked and untracked files   提交已被修改和已被删除文件，但是不包括新的文件
+
+8.git commit -m 'sdfdf' // 提交到本地仓库
+9.git remote add origin xxxxxxxxxxxxxxxxx(远程路径)  //和远程仓库关联
+10.git push -u origin master   //以master 分支提交到远程
+  
