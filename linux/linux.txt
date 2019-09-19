@@ -1,0 +1,4 @@
+1.linux查看指定端口占用
+  netstat -anp|grep 端口号
+2.linux查看当前端口号的占用情况(列出占用的所有端口号)
+  netstat -nultp
