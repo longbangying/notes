@@ -1,0 +1,6 @@
+1.master配置文件
+  a.把bind 127.0.0.1 去掉,或者修改为具体的IP,多个用逗号隔开,此处配置IP之后,redis 只允许配置的IP访问,相当于一个白名单,因此此处必须配置 从redis的IP
+  b.把protected-mode 修改为no  ,不改的话从库访问的时候可能会报错
+2.slave配置文件
+  a.slaveof masterIP masterPort   //例 slaveof 192.168.153.129 6379   配置master的IP及端口号
+  b.masterauth  master 密码   //

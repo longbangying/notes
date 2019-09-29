@@ -1,0 +1,20 @@
+1.centos  设置阿里镜像中心为yum的源；
+	wget -O /etc/yum.repos.d/CenOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo  
+	没安装wget的话可以用 curl
+	curl -O /etc/yum.repos.d/CenOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo
+	
+	清除旧缓存  yum clean all
+	创建新缓存  yum makecache
+	安装必要的软件包 yum -y install vim tree nmap sysstat gcc gcc-c++ make telnet
+	
+2.
+  rpm 安装的
+  linux 查看已经安装的软件    rpm -qa  (已经安装的全部软件)
+  linux 查看指定软件是否安装  rpm -qa|grep wget   (查看wget是否安装)
+  yum 安装的 
+  yum list installed 
+  yum list installed |grep wget 
+  
+  
+  
+  scp 文件    hostname:path   两服务器之间传文件(要输入目的主机的密码)
