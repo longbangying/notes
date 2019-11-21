@@ -1,0 +1,5 @@
+1.docker search redis
+2.docker pull redis
+3.docker run itd --name redis-test -p 6379:6379 redis  启动redis
+4.docker exec -it redis-test /bash/bin  进入redis
+5.redis-cli
