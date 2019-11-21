@@ -1,0 +1,13 @@
+1.检查ssh服务状态
+	systemctl status sshd
+2.设置hostname(非必须)
+	hostname          -命令检查当前的主机名
+	hostname 主机名   -设置主机名(关机之后就失效)
+	hostnamectl set-hostname 主机名      -设置主机名(永久有效)
+3.配置hosts
+	vi /etc/hosts
+	加入 ip 和主机名的映射
+4.生成gen
+	ssh-keygen -t  rsa  -P  ''             -生成密钥文件  一路回车即可,成功之后会在 /root/.ssh/目录下生成两个文件  id_rsa 和id_rsa.pub
+	在.ssh 目录下新建文件 authorized_keys 并将id_rsa.pub 中的内容复制到里面(要实现免密登录的两台机子上authorized_keys的内容 应该是一样的)
+	配置完之后 ssh hostname  应该就不用输入密码了，但第一次ssh 有个确认

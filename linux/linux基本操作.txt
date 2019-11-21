@@ -18,3 +18,11 @@
   
   
   scp 文件    hostname:path   两服务器之间传文件(要输入目的主机的密码)
+  
+3.防火墙
+	systemctl status  firewalld.service      --查看当前防火墙的状态
+	systemctl stop firewalld.service         --关闭防火墙
+	systemctl disable firewalld.service      --禁止防火墙开机启动
+4.selinux
+	sestatus             --查看selinux 状态
+	vi /etc/selinux/config   将 SELINUX=enforcing  改为 SELINUX=disabled    禁用

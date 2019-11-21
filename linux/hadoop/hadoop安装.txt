@@ -1,0 +1,148 @@
+1.前提条件
+	1).准备两台linux虚拟机
+	2).两台虚拟机分别安装jdk(1.8)
+	3).两台虚拟机设置ssh免登陆
+	4).关闭防火墙
+	5).关闭selinux 
+2.下载hadoop http://hadoop.apache.org/releases.html
+
+3.在服务器上新建一个目录(这里是新建在/opt下 )
+	mkdir /opt/hadoop
+	将下载的hadoop 包上传至这个目录并解压
+4.新建hadoop需要的各个目录
+	mkdir /opt/hadoop/tem        -新建临时数据目录
+	mkdir /opt/hadoop/var
+	mkdir /opt/hadoop/dfs/data   -新建dfs数据目录
+	mkdir /opt/hadoop/dfs/name   -新建dfsName目录
+	
+5.配置hadoop-env.sh
+	将export JAVA_HOME=${JAVA_HOME} 改成 JAVA_HOME=实际的jdk路径
+	将export HADOOP_CONF_DIR=${HADOOP_CONF_DIR:-"/etc/hadoop"}  改成 export HADOOP_CONF_DIR=实际的路径(例如/opt/hadoop/hadoop-2.10.0/etc/hadoop )
+6.配置core-site.xml
+	<property>
+		<name>hadoop.tmp.dir</name>
+		<value>/opt/hadoop/tmp</value>
+	</property>
+	<property>
+		<name>fs.default.name</name>
+		<value>hdfs://xbang2:9000</value>
+	</property>
+7.配置hdfs-site.xml
+	<property>
+		<name>dfs.namenode.name.dir</name>
+		<value>/opt/hadoop/dfs/name</value>
+	</property>
+	<property>
+		<name>dfs.datanode.data.dir</name>
+		<value>/opt/hadoop/dfs/data</value>
+	</property>
+	<property>
+		<name>replication</name>
+		<value>2</value>
+	</property>
+	<property>
+		<name>dfs.permissions</name>
+		<value>false</value>
+	</property>
+	<property>
+		<name>dfs.http.address</name>
+		<value>xbang2:50070</value>
+	</property>
+8.配置 yarn-site.xml
+	<property>
+       <name>yarn.resourcemanager.hostname</name>
+       <value>xbang2</value>
+    </property>
+        <property>
+       <name>yarn.resourcemanager.address</name>
+       <value>${yarn.resourcemanager.hostname}:8032</value>
+    </property>
+    <property>
+       <name>yarn.resourcemanager.scheduler.address</name>
+       <value>${yarn.resourcemanager.hostname}:8030</value>
+    </property>
+    <property>
+       <name>yarn.resourcemanager.webapp.address</name>
+       <value>${yarn.resourcemanager.hostname}:8088</value>
+    </property>
+    <property>
+       <name>yarn.resourcemanager.webapp.https.address</name>
+       <value>${yarn.resourcemanager.hostname}:8090</value>
+    </property>
+    <property>
+       <name>yarn.resourcemanager.resource-tracker.address</name>
+       <value>${yarn.resourcemanager.hostname}:8031</value>
+    </property>
+    <property>
+       <name>yarn.resourcemanager.admin.address</name>
+       <value>${yarn.resourcemanager.hostname}:8033</value>
+    </property>
+    <property>
+       <name>yarn.nodemanager.aux-services</name>
+       <value>mapreduce_shuffle</value>
+    </property>
+	<!--这几个最好不要配，跑mapreduce 的时候会报错-->
+    <!--<property>
+       <name>yarn.scheduler.maximum-allocation-mb</name>
+       <value>1024</value>
+    </property>-->
+    <!--<property>
+       <name>yarn.nodemanager.vmem-pmem-ratio</name>
+       <value>2.1</value>
+    </property>-->
+    <!--<property>
+       <name>yarn.nodemanager.resource.memory-mb</name>
+       <value>1024</value>
+    </property>-->
+    <property>
+       <name>yarn.nodemanager.vmem-check-enabled</name>
+       <value>false</value>
+    </property>
+    <property>
+        <name>yarn.app.mapreduce.am.resource.mb</name>
+        <value>200</value>
+    </property>
+	
+9.配置mapred-site.xml
+	<property>
+			<name>mapred.job.tracker</name>
+			<value>hdfs://xbang2:49001</value>
+	</property>
+	<property>
+			<name>mapred.local.dir</name>
+			<value>/opt/hadoop/var</value>
+	</property>
+	<property>
+			<name>mapreduce.framework.name</name>
+			<value>yarn</value>
+	</property>
+	
+10.配置slaves
+    删除原有的localhost
+	添加xbang3
+以上的操作都要在两个主机上操作,这里的两个主机分别是 xbang2和xbang3
+也可以在一台机子上配置完之后再通过scp传到另外一个主机,两台主机的配置都是一样的
+	scp -r hadoop-2.10.0 xbang3:/opt/hadoop/
+11.格式化namenode
+   cd 到hadoop的bin目录下执行在xbang2上   ./hadoop namenode -format 
+12.启动
+	cd 到hadoop的sbin目录下(xbang2)   ./start-all.sh
+
+13.验证是否成功
+   1.jps 应该有SecondaryNameNode,namenode 等进程
+   2.netstat -nultp   查看50070 等端口有没有被占用
+   3.访问 http://192.168.153.130:50070/  hdfs 的UI管理页
+   
+运行hadoop 给的wordcount mapreduce 示例
+14.随便上传一个txt文件至linux服务器  目的路径可自定义(/opt/hadoop/input)
+15.在hdfs上建立一个文件夹存放txt文件
+	./hadoop fs -mkdir /input
+16.将linux上的txt文件上传至hdfs
+	./hadoop fs -put /opt/hadoop/input /input
+	使用 ./hadoop fs -ls /input  应该可以看到刚上传的文件
+17.执行mapreduce 程序
+	cd 至hadoop的bin目录下执行
+	./hadoop jar ../share/hadoop/mapreduce/hadoop-mapreduce-examples-2.10.0.jar wordcount /input /output
+18.
+	
+
