@@ -1,0 +1,3 @@
+查看mapreduce 日志
+
+yarn logs -applicationId appId() ->new.log
