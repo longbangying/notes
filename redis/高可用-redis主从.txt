@@ -1,0 +1,26 @@
+1.redis主从的高可用是通过哨兵来实现的,哨兵配置
+protected-mode no
+port 26379
+daemonize no
+
+dir "/usr/local/redis/data"
+#监控master的IP    后面的数字1 的寓意为 当有多少个哨兵Ping不通主节点时  就主观的认为其已经不可用   因为这里只配置了一个哨兵所以是1  如果哨兵也有多个的话 这里最好配置 超过哨兵总数量的一半 
+sentinel monitor mymaster 192.168.153.129 6379 1
+#指定哨兵在监控Redis服务时，当Redis服务在一个默认毫秒数内都无法回答时，单个哨兵认为的主观下线时间，默认为30000（30秒）
+sentinel down-after-milliseconds mymaster 1000
+指定可以有多少个Redis服务同步新的主机，一般而言，这个数字越小同步时间越长，而越大，则对网络资源要求越高
+sentinel parallel-syncs mymaster 1
+
+sentinel auth-pass mymaster xbang
+指定故障切换允许的毫秒数，超过这个时间，就认为故障切换失败，默认为3分钟
+sentinel failover-timeout mymaster 900000
+
+sentinel config-epoch mymaster 0
+
+sentinel leader-epoch mymaster 1
+
+
+2.启动哨兵   ./bin/redis-sentinel sentinel.conf 
+3.当主节点挂掉之后，理应从节点顶上,但在故障切换的时候报了一个错 -failover-abort-no-good-slave ;  这个错只要把所有的从节点的   bind 127.0.0.1 改为 bind 0.0.0.0 即可
+4.至此高可用的redis 主从环境已经搭好
+TIP:redis 集群的密码要么不设，要么就设置一样的密码，推荐设置密码，因为集群中密码不一样的话,故障切换之后，客户端也会因为密码不对而导致不可用

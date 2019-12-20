@@ -143,6 +143,7 @@
 17.执行mapreduce 程序
 	cd 至hadoop的bin目录下执行
 	./hadoop jar ../share/hadoop/mapreduce/hadoop-mapreduce-examples-2.10.0.jar wordcount /input /output
-18.
+ 
 	
-
+参考:
+https://blog.csdn.net/sion_1989/article/details/79033404

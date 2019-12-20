@@ -1,0 +1,11 @@
+1.下载kafka    http://kafka.apache.org/downloads
+2.上传至服务器并解压
+3.修改server.properties 配置 
+	host.name=服务器内网地址      
+	advertised.listeners=PLAINTEXT://外网地址:9092(端口号)    
+	zookeeper.connect=localhost:2181(zookeeper地址及端口号)
+4.启动kafka(确保zookeeper已经启动)
+	./bin/kafka-server-start.sh config/server.properties(前台启动)
+	sh bin/kafka-server-start.sh config/server.properties 1>/dev/null 2>&1 &(后台启动)
+	
+	
