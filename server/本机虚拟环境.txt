@@ -1,0 +1,4 @@
+zookeeper:
+	xbang3,xbang4,xbang5
+kafka:
+	xbang3,xbang4,xbang5

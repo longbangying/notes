@@ -7,5 +7,21 @@
 4.启动kafka(确保zookeeper已经启动)
 	./bin/kafka-server-start.sh config/server.properties(前台启动)
 	sh bin/kafka-server-start.sh config/server.properties 1>/dev/null 2>&1 &(后台启动)
+	kafka-server-start.sh -daemon config/server.properties  (后台启动)
+	
+	
+5.集群方式
+	broker.id=修改为不同
+	如果zookeeper也是集群的话,y也需要修改zookeeper的配置为
+	zookeeper.connect=localhost:2181,localhost1:2181,localhost3:2181
+
+6.测试
+
+创建topic
+	kafka-topic.sh --bootstrap-server 192.168.153.131:9092,192.168.153.132:9092,192.168.153.133:9092  --create --topic topicName(主题名称)
+consumer 订阅主题
+	kafka-console-consumer.sh --bootstrap-server 192.168.153.131:9092,192.168.153.132:9092,192.168.153.133:9092  --topic topicName(订阅的主题名称)
+producer 关联主题
+	kafka-console-producer.sh --broker-list 192.168.153.131:9092,192.168.153.132:9092,192.168.153.133:9092 --topic topicName(关联的主题名称)
 	
 	
