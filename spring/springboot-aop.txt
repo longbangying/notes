@@ -1,0 +1,11 @@
+spring 使用AOP
+
+1.基于注解
+	1).使用@Aspect声明切面类
+	2).声明切入点,注解有 @Around  @Before 等.如 @Around("@annotation(com.xbang.multi.datasource.annotation.support.DS)")  表示带有注解DS的方法都会被拦截
+
+
+2.实现AOP的相关类
+	1).自定义类继承 AbstractPointcutAdvisor  需要其中的 getPointcut() 和 getAdvice()  方法,getPointcut 获取切入点,getAdvice() 获取增强点
+	2).自定义类继承 MethodInterceptor        需要实现其中的 invoke(MethodInvocation methodInvocation) 方法;执行相关方法时会进入该方法；
+	3).发布至bean容器

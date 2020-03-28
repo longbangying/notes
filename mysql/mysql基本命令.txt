@@ -1,0 +1,7 @@
+1.创建用户
+	create user mall@'192.168.153.%' identified by 'Mall+123456_';
+2.创建数据库
+	create database mall;
+3.将某数据库授权给用户
+	grant all privileges on mall.* to mall@'192.168.153.%';
+	flush privileges;

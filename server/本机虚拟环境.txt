@@ -2,3 +2,12 @@ zookeeper:
 	xbang3,xbang4,xbang5
 kafka:
 	xbang3,xbang4,xbang5
+mysql:
+	192.168.153.128(主库)  root  Soar18786611964_
+	192.168.153.129(从库)  root  Soar18786611964_
+redis:
+	192.168.153.129(单机)
+rabbitmq:
+	192.168.153.128(单机) xbang xbang
+mongoDB:
+	本机服务(windows服务)

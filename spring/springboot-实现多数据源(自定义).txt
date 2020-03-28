@@ -1,0 +1,6 @@
+1.实现多数据源(aop + 注解 + AbstractRoutingDataSource)
+	1).定义一个注解DataSource,用于指定数据源
+	2).写一个拦截自定义注解的AOP,用于设置数据源
+	3).通过AbstractRoutingDataSource切换数据源,实现其中的determineCurrentLookupKey方法返回数据库的关键字
+
+ 
