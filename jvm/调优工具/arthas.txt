@@ -1,0 +1,16 @@
+1.arthas 的使用
+	1.1 下载zip包 https://github.com/alibaba/arthas/releases
+	1.2 启动自己的Java应用
+	1.3 解压zip包并进入arthas-xxxx-bin 里,启动arthas-boot.jar  
+	1.4 选择对应java进程的编号并键入
+	1.5 出现arthas的logo时就可以使用arthas命令查看对应java 进程的jvm各项信息了,命令wiki地址: https://alibaba.github.io/arthas/arthas-tutorials?language=cn&id=arthas-advanced
+	
+2.arthas几个重要的命令
+	2.1 查看jvm已加载指定类的信息
+		sc -d *TestController       //查看TestController的信息  包含类信息及Class-Loader 的信息
+	2.2 反编译指定的类
+		jad --source-only com.xbang.arthas.TestController > /opt/TestController.java
+	2.3 编译指定的java文件
+		mc -c 类加载器的Hash  /opt/TestController.java -d /opt    //编译TestController.java 并将Class文件放在 /opt下
+	2.4 重新加载类信息
+		redefine /opt/com/xbang/arthas/TestController.class     //重新加载TestController.class   可在不停应用的情况下修改类的信息

@@ -1,0 +1,51 @@
+1.打印
+-verbose:gc     打开GC日志
+-verbose:class  打印类加载日志
+-Xms5m          初始化堆内存为5M
+-Xmx1024m     最大堆内存为1024M
+-XX:+printGCDetails      打印GC详情日志
+-XX:+printCommandLineFlags   打印JVm参数
+
+-Xmn1m  指定新生代大小为1M
+-XX:survlorRatio=2    设置新生代eden区和s0区或s1区的比例   eden/s0   或eden/s1
+
+-XX:NewRatio=2    设置老年代和新生代的比例   老年代/新生代
+
+-XX:MaxTenuringThreshold=15  对象从新生代晋入老年代经过GC次数的最大阈值(默认是十五)
+
+
+-XX:+HeapDumpOnOutOfMemoryError     生成堆内存溢出快照
+-XX:HeapDumpPath=D:/test.dump       指定快照文件
+
+-Xss1m    指定Java栈大小
+
+-XX:PermSize          指定方法区大小(8之后的元空间大小)
+-XX:MaxPermSize64m    指定方法区最大内存(存放类信息,永久代)
+
+
+-XX:MaxDirectmemorySize   设置JVM直接内存大小
+
+
+java -XX:+PrintCommandLineFalgs -version 
+java -XX:+PrintFlagsFinal -version 
+
+
+
+2.垃圾回收器
+
+2.1 年轻代
+	serial(早版本jvm默认的年轻代回收器): 一个会stop the world(stw) 使用复制算法的单线程回收器；
+	parallel Scavenge(1.7,1.8 默认的年轻代垃圾回收器): 一个会stop the world(stw) 使用复制算法的多线程回收器；
+	parNew : parallel Scavenge 的增强版,配合CMS, stw，多线程，复制
+	
+2.2 老年代
+	serial-old(早版本jvm默认的老年代回收器):会stw的采用标记整理算法的单线程回收器;
+	parallel-old(1.7,1.8 默认的老年代垃圾回收器): 会stop the world(stw) 使用标记整理算法的多线程回收器；
+	CMS():分阶段标记清除算法垃圾回收器,第一阶段初始标记(会stw,只找到GC root),第二阶段并发标记(和工作线程一起运行),
+			第三阶段 重新标记(主要是解决并发标记过程中新增的垃圾或释放错标不是垃圾的对象),第四阶段 并发清理；两大缺点： 1.内存碎片化严重，2，并发清理阶段会产生浮动垃圾；
+	
+	
+
+
+
+

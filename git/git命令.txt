@@ -25,5 +25,17 @@
 10.git push -u origin master   //以master 分支提交到远程   
 
 11.git  remote  -v   //查看远程库
-12.git remote rm origin   //移除和远程关     联
+12.git remote rm origin   //移除和远程关联
+13.git branch 查看当前使用的分支(带*号的就是)
+14.git branch -a  查看所有分支
+15.git checkout 分支名    切换本地分支
+16.git checkout -b 本地分支名  origin/远程分支名    将远程分支clone checkout 到本地分支
+17.git reset HEAD~    撤回最近一次的本地提交
+18.git reset HEAD~2   撤回最近两次的本地提交
+
+19.git branch 分支名  创建本地分支
+20.git branch -d 分支名   删除本地指定分支
+21.git push orign 分支名    提交到远程分支
+22.git push --delete orign 分支名  删除远程分支
+
   

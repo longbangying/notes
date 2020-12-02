@@ -5,3 +5,5 @@
 3.将某数据库授权给用户
 	grant all privileges on mall.* to mall@'192.168.153.%';
 	flush privileges;
+4.  解决客户端 1251 问题 
+alter user 'nacos'@'%' identified with mysql_native_password by 'Soar18786611964!';
