@@ -1,4 +1,4 @@
 1.windows 查看指定端口号占用情况
-   netstat -ano|findstr "8080"
+   netstat -ano|findstr "端口号"
 2.windows 根据Pid杀死进程
   taskkill /f /pid  进程号
