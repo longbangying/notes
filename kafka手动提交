@@ -1,0 +1,32 @@
+@Component
+public class KafkaConsumerListener {
+
+    @Value("${server.port}")
+    private int port;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    @KafkaListener(topics = "test-kafka",groupId = "default-group")
+    public void onMessage(ConsumerRecord consumerRecord){
+        logger.info("收到消息:【{}】{}", port,consumerRecord.value());
+
+    }
+    @KafkaListener(topics = "test-topic",groupId = "default-group")
+    public void onMessage1(ConsumerRecord consumerRecord, Consumer consumer){
+        logger.info("收到消息:【{}】-offset:{} {}", port,consumerRecord.offset(),consumerRecord.value());
+        consumer.commitAsync();
+
+    }
+}
+
+
+
+spring:
+  kafka:
+    bootstrap-servers: localhost.huawei.com:9092
+    producer:
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: default-group
+      enable-auto-commit: false
+    listener:
+      ack-mode: manual_immediate
