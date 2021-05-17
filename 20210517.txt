@@ -1,0 +1,6 @@
+1.redis 有哪些数据结构,zSet的底层原理是什么?
+  redis数据结构有: String,List,Hash,Set,SortSet
+  zSet的底层原理是跳表
+2.有这样一个场景 A=1 and B >1 会命中联合索引AB吗?
+  会   b!=1 才不会命中,联合索引的最左匹配原则
+  
